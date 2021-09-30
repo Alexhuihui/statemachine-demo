@@ -1,13 +1,12 @@
 package top.alexmmd.statemachinedemo;
 
+import javafx.application.Application;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.statemachine.StateMachine;
-import reactor.core.publisher.Mono;
-import top.alexmmd.statemachinedemo.enums.TurnstileEvents;
-import top.alexmmd.statemachinedemo.enums.TurnstileStates;
+import top.alexmmd.statemachinedemo.enums.Events;
+import top.alexmmd.statemachinedemo.enums.States;
 
 import javax.annotation.Resource;
 
@@ -15,25 +14,15 @@ import javax.annotation.Resource;
 public class StatemachineDemoApplication implements CommandLineRunner {
 
     @Resource
-    private StateMachine<TurnstileStates, TurnstileEvents> stateMachine;
+    private StateMachine<States, Events> stateMachine;
 
     public static void main(String[] args) {
         SpringApplication.run(StatemachineDemoApplication.class, args);
     }
 
     @Override
-    public void run(String... strings) {
-        stateMachine.start();
-        System.out.println("--- coin ---");
-        stateMachine.sendEvent(TurnstileEvents.COIN);
-        System.out.println("--- coin ---");
-        stateMachine.sendEvent(TurnstileEvents.COIN);
-        System.out.println("--- push ---");
-        stateMachine.sendEvent(TurnstileEvents.PUSH);
-        System.out.println("--- push ---");
-        stateMachine.sendEvent(TurnstileEvents.PUSH);
-        stateMachine.stop();
-
-
+    public void run(String... args) throws Exception {
+        stateMachine.sendEvent(Events.E1);
+        stateMachine.sendEvent(Events.E2);
     }
 }
